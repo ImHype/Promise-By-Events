@@ -32,6 +32,33 @@ Derferred.prototype.always = function(normal){
 	this.state = "always";
 	this.promise.emit('always',normal);
 }
+Derferred.prototype.isError = function(){
+	var self = this;
+	return function(err,data){
+		if(err){
+			self.reject(err);
+		}else{
+			self.resolve(data.toString());
+		}
+	};
+}
+Derferred.prototype.all = function(promises){
+	var count = promises.length;
+	var self = this;
+	var results = [];
+	promises.forEach(function(promise,index){
+		promise.then(function(data){
+			count --;
+			results[index] = data;
+			if(count == 0){
+				self.resolve(results);
+			}
+		},function(err){
+			self.reject(err);
+		})
+	});
+	return this.promise;
+}
 
 var em = new Promise();
 em.on("a",function(msg){
