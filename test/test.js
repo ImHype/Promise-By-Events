@@ -1,4 +1,4 @@
-var Deferred = require('./promise');
+var Deferred = require('../promise');
 
 var fs = require('fs');
 
@@ -17,7 +17,7 @@ readFile('test.txt').then(function(data){
 
 (function(){
 	var readFile1 = readFile('test.txt');
-	var readFile2 = readFile('publish.js');
+	var readFile2 = readFile('../publish.js');
 
 	var defer = new Deferred();	
 	defer.all([readFile1,readFile2]).then(function(results){

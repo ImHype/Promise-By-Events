@@ -1,4 +1,4 @@
-var EventEmitter = require("./emit&on");
+var EventEmitter = require("./events");
 //继承 EventEmitter 的函数和原型
 var Promise = function () {
 	EventEmitter.call(this);
